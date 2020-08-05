@@ -1,0 +1,37 @@
+server:
+  port: 3344
+spring:
+  application:
+    name: cloud-config-center
+  cloud:
+    config:
+      server:
+        git:
+          uri:  git@gitee.com:minatos/springcloud-config.git
+          search-paths:
+            - springcloud-config
+#          username: username
+#          password: password https要加这两个
+      label: master #默认读取master
+#      label:分支(branch)
+#      name :服务名
+#      profiles:环境(dev/test/prod)
+#rabbitmq相关配置，15672是Web管理界面的端口；5672是MQ访问的端口
+  rabbitmq:
+    host: 47.107.83.63
+    port: 5672
+    username: guest
+    password: guest
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone:  http://localhost:7001/eureka
+
+#rabbitmq相关配置，暴露bus刷新配置的端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'bus-refresh' #应该是给其他人都发送了/actuator/refresh
